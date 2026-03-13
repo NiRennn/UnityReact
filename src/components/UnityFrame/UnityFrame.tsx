@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 
 export default function UnityFrame() {
-  const iframeRef = useRef(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
-    const handleMessage = (event:MessageEvent) => {
+    const handleMessage = (event: MessageEvent) => {
       if (event.source !== iframeRef.current?.contentWindow) return;
 
       const data = event.data;
@@ -17,7 +17,10 @@ export default function UnityFrame() {
           break;
 
         case "GAME_OVER":
-          console.log("[Unity -> React] Игра окончена. Финальный счёт:", data.payload?.score);
+          console.log(
+            "[Unity -> React] Игра окончена. Финальный счёт:",
+            data.payload?.score
+          );
           break;
 
         default:
